@@ -91,13 +91,14 @@ eas build -p android --profile preview --local
 
 Aun usando `--local`, EAS necesita autenticación de Expo.
 
-## 6. Commits sugeridos incluidos
+## 6. Commits incluidos
 
 El proyecto se preparó con Git y commits claros:
 
 1. `chore: create expo react native project from scratch`
 2. `feat: implement accessible native screens and services`
 3. `docs: add apk build guide and architecture notes`
+4. `feat: connect root app navigation`
 
 ## 7. Sustento breve para exposición
 
