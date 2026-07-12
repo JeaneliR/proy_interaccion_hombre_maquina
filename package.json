@@ -13,6 +13,7 @@
     "apk:local": "eas build -p android --profile preview --local"
   },
   "dependencies": {
+    "babel-preset-expo": "~57.0.0",
     "expo": "~57.0.0",
     "expo-clipboard": "~57.0.0",
     "expo-document-picker": "~57.0.0",
