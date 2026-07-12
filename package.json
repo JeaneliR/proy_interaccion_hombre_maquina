@@ -1,0 +1,27 @@
+{
+  "name": "mi-app-expo-rn",
+  "version": "1.0.0",
+  "private": true,
+  "main": "App.js",
+  "description": "Aplicación accesible implementada desde cero con Expo y React Native, preparada para generar APK con EAS Build.",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "web": "expo start --web",
+    "doctor": "npx expo-doctor",
+    "apk": "eas build -p android --profile preview",
+    "apk:local": "eas build -p android --profile preview --local"
+  },
+  "dependencies": {
+    "expo": "~57.0.0",
+    "expo-clipboard": "~57.0.0",
+    "expo-document-picker": "~57.0.0",
+    "expo-file-system": "~57.0.0",
+    "expo-speech": "~57.0.0",
+    "react": "19.2.3",
+    "react-native": "0.86.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2"
+  }
+}

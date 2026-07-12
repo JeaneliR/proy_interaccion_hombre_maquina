@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Mi App Accesible",
+    "slug": "mi-app-expo-rn",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F172A"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.germantrinidad.miappexpo"
+    },
+    "android": {
+      "package": "com.germantrinidad.miappexpo",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0F766E"
+      },
+      "permissions": [
+        "VIBRATE"
+      ]
+    },
+    "plugins": [
+      "expo-document-picker",
+      "expo-file-system"
+    ]
+  }
+}
