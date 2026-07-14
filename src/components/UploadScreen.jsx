@@ -5,10 +5,10 @@ import Header from './Header';
 import PrimaryButton from './PrimaryButton';
 import { SCREENS } from '../constants/screens';
 
-export default function UploadScreen({ setTexto, styles, actions, services }) {
+export default function UploadScreen({ texto, setTexto, styles, actions, services }) {
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(Boolean(texto.trim()));
   const [loading, setLoading] = useState(false);
 
   const pickDocument = async () => {
@@ -20,7 +20,7 @@ export default function UploadScreen({ setTexto, styles, actions, services }) {
 
     try {
       const result = await DocumentPicker.getDocumentAsync({
-        type: ['text/plain', '*/*'],
+        type: ['text/plain', 'text/csv', 'text/markdown', '*/*'],
         copyToCacheDirectory: true,
         multiple: false
       });
@@ -30,15 +30,15 @@ export default function UploadScreen({ setTexto, styles, actions, services }) {
         return;
       }
 
-      const asset = result.assets[0];
+      const asset = result.assets?.[0];
       const content = await services.files.extract(asset);
-      setTexto(content);
+      setTexto(content, 'documento');
       setLoaded(true);
-      setStatus(`Archivo cargado: ${asset.name}`);
+      setStatus(`Documento procesado: ${asset?.name || 'archivo seleccionado'}`);
       actions.vibrate('success');
-      actions.announce('Archivo cargado correctamente');
+      actions.announce('Documento procesado correctamente. Ya puedes escucharlo.');
     } catch (err) {
-      const message = err?.message || 'No se pudo leer el archivo.';
+      const message = err?.message || 'No se pudo leer el documento.';
       setError(message);
       actions.vibrate('error');
       actions.announce(message);
@@ -50,20 +50,20 @@ export default function UploadScreen({ setTexto, styles, actions, services }) {
   return (
     <View>
       <Header
-        title="Cargar archivo"
-        subtitle="Selecciona un archivo TXT para extraer su contenido y escucharlo."
+        title="Escuchar información"
+        subtitle="Selecciona un documento de texto, procésalo y reprodúcelo en voz alta."
         styles={styles}
       />
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Formato admitido</Text>
-        <Text style={styles.text}>TXT / text/plain</Text>
-        <Text style={styles.mutedText}>PDF, DOCX e imágenes quedan como mejoras futuras porque requieren extractores adicionales.</Text>
+        <Text style={styles.cardTitle}>Formatos admitidos</Text>
+        <Text style={styles.text}>TXT, CSV y MD.</Text>
+        <Text style={styles.mutedText}>PDF y DOCX requieren extractores adicionales; por ahora se informa al usuario si el formato no es compatible.</Text>
       </View>
 
       <PrimaryButton
         styles={styles}
-        label={loading ? 'Procesando...' : '📂 Seleccionar TXT'}
+        label={loading ? 'Procesando documento...' : '📂 Seleccionar documento'}
         disabled={loading}
         onPress={pickDocument}
       />
@@ -71,17 +71,18 @@ export default function UploadScreen({ setTexto, styles, actions, services }) {
       {status ? <Text style={styles.status}>{status}</Text> : null}
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
+      <PrimaryButton styles={styles} label="🔊 Escuchar ahora" disabled={!loaded || loading} onPress={() => actions.play()} />
       <PrimaryButton
         styles={styles}
-        label="Ver contenido"
-        disabled={!loaded}
-        onPress={() => actions.navigate(SCREENS.TRANSCRIPTION, 'Mostrando texto cargado')}
+        label="Ver contenido procesado"
+        disabled={!loaded || loading}
+        onPress={() => actions.navigate(SCREENS.TRANSCRIPTION, 'Mostrando texto procesado')}
       />
       <PrimaryButton
         styles={styles}
         label="⬅ Volver"
         secondary
-        onPress={() => actions.navigate(SCREENS.HOME, 'Volviendo al inicio')}
+        onPress={() => actions.goHome()}
       />
     </View>
   );

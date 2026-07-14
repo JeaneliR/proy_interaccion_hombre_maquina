@@ -40,7 +40,7 @@ export default function PlayerScreen({ texto, reproduciendo, styles, actions }) 
         styles={styles}
         label="⬅ Volver"
         secondary
-        onPress={() => actions.navigate(SCREENS.HOME, 'Volviendo al inicio')}
+        onPress={() => actions.goHome()}
       />
     </View>
   );

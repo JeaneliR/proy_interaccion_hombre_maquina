@@ -41,7 +41,7 @@ export default function TranscriptionScreen({ texto, styles, actions, services }
         styles={styles}
         label="⬅ Volver"
         secondary
-        onPress={() => actions.navigate(SCREENS.HOME, 'Volviendo al inicio')}
+        onPress={() => actions.goHome()}
       />
     </View>
   );

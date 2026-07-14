@@ -40,7 +40,7 @@ export default function WriteScreen({ texto, setTexto, styles, actions }) {
         styles={styles}
         label="⬅ Volver"
         secondary
-        onPress={() => actions.navigate(SCREENS.HOME, 'Volviendo al inicio')}
+        onPress={() => actions.goHome()}
       />
     </View>
   );
